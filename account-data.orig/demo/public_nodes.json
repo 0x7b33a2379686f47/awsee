@@ -1,0 +1,44 @@
+[
+    {
+        "account": "demo",
+        "arn": "arn:aws:ecs:us-east-1:123456789012:task/d190d14a-2404-45d6-9113-4eda22d7f2c7",
+        "hostname": "3.80.3.41",
+        "ports": "443",
+        "public_sgs": {
+            "sg-00000008": {
+                "GroupId": "sg-00000008",
+                "GroupName": "Public",
+                "public_ports": "443"
+            }
+        },
+        "type": "ecs"
+    },
+    {
+        "account": "demo",
+        "arn": "arn:aws:elasticloadbalancing:us-east-1:123456789012:instance/weblb/us-east-1.subnet-00000002",
+        "hostname": "weblb.us-west-2.elb.amazonaws.com",
+        "ports": "443",
+        "public_sgs": {
+            "sg-00000003": {
+                "GroupId": "sg-00000003",
+                "GroupName": "Public web",
+                "public_ports": "443"
+            }
+        },
+        "type": "elb"
+    },
+    {
+        "account": "demo",
+        "arn": "arn:aws:elasticloadbalancingv2:us-east-1:123456789012:instance/webalb/us-east-1.subnet-00000002",
+        "hostname": "webalb",
+        "ports": "443",
+        "public_sgs": {
+            "sg-00000003": {
+                "GroupId": "sg-00000003",
+                "GroupName": "Public web",
+                "public_ports": "443"
+            }
+        },
+        "type": "elbv2"
+    }
+]

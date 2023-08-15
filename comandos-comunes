@@ -1,0 +1,48 @@
+docker build -t cloudmapper .   && rundocker.sh
+///
+
+python -m venv venv
+source venv/bin/activate
+
+pip install -r requirements.txt
+
+1. aws-bastion-cli -a 171694291616 -r CrossAccountManager-Crypto-CryptoSec-STG -u secabrera
+
+
+
+python cloudmapper.py collect --account ZonaCrypto-STAGING --regions "us-east-1"
+python cloudmapper.py report --account ZonaCrypto-STAGING
+python cloudmapper.py prepare --account ZonaCrypto-STAGING
+python cloudmapper.py webserver --port 8900
+
+
+--------------
+
+
+1. aws-bastion-cli -a 171694291616 -r CrossAccountManager-Crypto-CryptoSec-STG -u secabrera
+2. docker build -t cloudmapper-meli . 
+3. ./rundocker.sh
+
+
+python cloudmapper.py configure add-account --config-file config.json --name YOUR_ACCOUNT --id YOUR_ACCOUNT_NUMBER
+python cloudmapper.py collect --account YOUR_ACCOUNT
+python cloudmapper.py report --account YOUR_ACCOUNT
+python cloudmapper.py prepare --account YOUR_ACCOUNT
+python cloudmapper.py webserver --port 8900
+
+usage: cloudmapper.py [amis|api_endpoints|audit|collect|configure|find_admins|find_unused|iam_report|prepare|public|report|sg_ips|stats|weboftrust|webserver] [...]
+  amis: Cross-reference EC2 instances with AMI information
+  api_endpoints: [Deprecated] Map API Gateway end-points
+  audit: Identify potential issues such as public S3 buckets
+  collect: Run AWS API calls to collect data from the account
+  configure: Add and remove items from the config file
+  find_admins: Find privileged users and roles in accounts
+  find_unused: Find unused resources in accounts
+  iam_report: Create IAM report
+  prepare: Generate network connection information file
+  public: Find publicly exposed services and their ports
+  report: Create report
+  sg_ips: [Deprecated] Find all IPs are that are given trusted access via Security Groups
+  stats: Print counts of resources for accounts
+  weboftrust: Create Web Of Trust diagram for accounts
+  webserver: Run a webserver to display network or web of trust map

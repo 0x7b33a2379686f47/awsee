@@ -1,17 +1,30 @@
 FROM python:3.7-slim as cloudmapper
 
-LABEL maintainer="https://github.com/0xdabbad00/"
-LABEL Project="https://github.com/duo-labs/cloudmapper"
-
-EXPOSE 8000
-WORKDIR /opt/cloudmapper
+# Set environment variables
 ENV AWS_DEFAULT_REGION=us-east-1 
 
-RUN apt-get update -y
-RUN apt-get install -y build-essential autoconf automake libtool python3-tk jq awscli
-RUN apt-get install -y bash
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    autoconf \
+    automake \
+    libtool \
+    python3-tk \
+    jq \
+    awscli \
+    bash \
+    procps \
+    net-tools
 
-COPY . /opt/cloudmapper
-RUN pip install -r requirements.txt
+# Set the working directory in the container
+WORKDIR /opt/cloudmapper
 
-RUN bash
+# Copy the project files to the working directory
+COPY . .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+
+# Start a bash shell by default
+CMD ["bash"]
