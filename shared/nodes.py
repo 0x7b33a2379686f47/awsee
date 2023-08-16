@@ -571,7 +571,14 @@ class VpcEndpoint(Leaf):
 
     @property
     def security_groups(self):
-        return pyjq.all(".Groups[].GroupId", self._json_blob)
+        if self._json_blob is None:
+            print("Warning: JSON blob is null. Cannot query security groups.")
+            return []
+        try:
+            return pyjq.all(".Groups[].GroupId", self._json_blob)
+        except Exception as e:
+            print(f"Error querying security groups: {str(e)}")
+            return []
 
     def __init__(self, parent, json_blob):
         self._type = "vpc_endpoint"
